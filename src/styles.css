@@ -1,0 +1,35 @@
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f5f7fa;
+}
+
+.app {
+  max-width: 500px;
+  margin: auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-top: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.timer {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: #6c63ff;
+  color: white;
+  cursor: pointer;
+}
