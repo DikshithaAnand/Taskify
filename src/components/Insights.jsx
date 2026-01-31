@@ -33,18 +33,25 @@ export default function Insights({ sessions }) {
           marginTop: '1rem'
         }}
       >
-        {recentSessions.map((session, index) => (
-          <div
-            key={index}
-            title={`Focus: ${session.rating}`}
-            style={{
-              width: '20px',
-              height: `${session.rating * 20}px`,
-              backgroundColor: '#6c63ff',
-              borderRadius: '6px'
-            }}
-          />
-        ))}
+        {recentSessions.map((session, index) => {
+          const duration = session.duration || 25
+          const completedAt = session.completedAt
+            ? new Date(session.completedAt).toLocaleString()
+            : 'Unknown time'
+
+          return (
+            <div
+              key={index}
+              title={`Focus: ${session.rating} | Duration: ${duration} min | Completed: ${completedAt}`}
+              style={{
+                width: '20px',
+                height: `${session.rating * 20}px`,
+                backgroundColor: '#6c63ff',
+                borderRadius: '6px'
+              }}
+            />
+          )
+        })}
       </div>
 
       <p
