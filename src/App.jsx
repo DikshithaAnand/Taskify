@@ -23,6 +23,7 @@ export default function App() {
     setSessions(updated)
     localStorage.setItem('sessions', JSON.stringify(updated))
 
+    // reset back to timer view
     setSessionDone(false)
   }
 
