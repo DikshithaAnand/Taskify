@@ -31,6 +31,17 @@ export default function Timer({ onFinish }) {
     <div className="card">
       <h2>Focus Session</h2>
 
+      {/* Status Indicator */}
+      <p
+        style={{
+          color: isRunning ? '#2e7d32' : '#c62828',
+          fontWeight: '600',
+          marginBottom: '0.5rem'
+        }}
+      >
+        {isRunning ? '🟢 Session Running' : '⏸️ Session Paused'}
+      </p>
+
       <p className="timer">
         {minutes}:{seconds.toString().padStart(2, '0')}
       </p>
