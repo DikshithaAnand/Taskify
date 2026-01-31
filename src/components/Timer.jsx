@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import SoundToggle from './SoundToggle'
 
 export default function Timer({ onFinish }) {
+  const [duration, setDuration] = useState(25) // minutes
   const [time, setTime] = useState(25 * 60)
   const [isRunning, setIsRunning] = useState(false)
   const [hasStarted, setHasStarted] = useState(false)
@@ -11,7 +12,7 @@ export default function Timer({ onFinish }) {
 
     if (time === 0) {
       setIsRunning(false)
-      onFinish()
+      onFinish(duration)
       return
     }
 
@@ -20,7 +21,7 @@ export default function Timer({ onFinish }) {
     }, 1000)
 
     return () => clearTimeout(timer)
-  }, [time, isRunning, onFinish])
+  }, [time, isRunning, duration, onFinish])
 
   const minutes = Math.floor(time / 60)
   const seconds = time % 60
@@ -37,7 +38,15 @@ export default function Timer({ onFinish }) {
   const resetTimer = () => {
     setIsRunning(false)
     setHasStarted(false)
-    setTime(25 * 60)
+    setTime(duration * 60)
+  }
+
+  const handleDurationChange = (e) => {
+    const value = Number(e.target.value)
+    setDuration(value)
+    setTime(value * 60)
+    setHasStarted(false)
+    setIsRunning(false)
   }
 
   const getStatusText = () => {
@@ -46,33 +55,33 @@ export default function Timer({ onFinish }) {
     return '⏸️ Session Paused'
   }
 
-  const getStatusColor = () => {
-    if (!hasStarted) return '#1565c0'
-    if (isRunning) return '#2e7d32'
-    return '#c62828'
-  }
-
   return (
     <div className="card">
       <h2>Focus Session</h2>
 
-      {/* Status Indicator */}
-      <p
-        style={{
-          color: getStatusColor(),
-          fontWeight: '600',
-          marginBottom: '0.5rem'
-        }}
-      >
-        {getStatusText()}
-      </p>
+      {/* Duration Selector */}
+      {!hasStarted && (
+        <div style={{ marginBottom: '0.75rem' }}>
+          <label>
+            Session Duration (minutes):{' '}
+            <select value={duration} onChange={handleDurationChange}>
+              <option value={2}>2</option>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={25}>25</option>
+              <option value={30}>30</option>
+              <option value={45}>45</option>
+            </select>
+          </label>
+        </div>
+      )}
 
-      {/* Timer */}
+      <p style={{ fontWeight: '600' }}>{getStatusText()}</p>
+
       <p className="timer">
         {minutes}:{seconds.toString().padStart(2, '0')}
       </p>
 
-      {/* Controls */}
       <div style={{ marginTop: '1rem' }}>
         {!isRunning ? (
           <button onClick={startTimer}>Start</button>
@@ -84,7 +93,6 @@ export default function Timer({ onFinish }) {
         </button>
       </div>
 
-      {/* Ambient Sound Toggle */}
       <SoundToggle isRunning={isRunning} />
     </div>
   )
