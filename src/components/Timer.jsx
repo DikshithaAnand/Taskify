@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import SoundToggle from './SoundToggle'
 
 export default function Timer({ onFinish }) {
   const [time, setTime] = useState(25 * 60)
@@ -7,6 +8,7 @@ export default function Timer({ onFinish }) {
 
   useEffect(() => {
     if (!isRunning) return
+
     if (time === 0) {
       setIsRunning(false)
       onFinish()
@@ -18,7 +20,7 @@ export default function Timer({ onFinish }) {
     }, 1000)
 
     return () => clearTimeout(timer)
-  }, [time, isRunning])
+  }, [time, isRunning, onFinish])
 
   const minutes = Math.floor(time / 60)
   const seconds = time % 60
@@ -65,10 +67,12 @@ export default function Timer({ onFinish }) {
         {getStatusText()}
       </p>
 
+      {/* Timer */}
       <p className="timer">
         {minutes}:{seconds.toString().padStart(2, '0')}
       </p>
 
+      {/* Controls */}
       <div style={{ marginTop: '1rem' }}>
         {!isRunning ? (
           <button onClick={startTimer}>Start</button>
@@ -79,6 +83,9 @@ export default function Timer({ onFinish }) {
           Reset
         </button>
       </div>
+
+      {/* Ambient Sound Toggle */}
+      <SoundToggle isRunning={isRunning} />
     </div>
   )
 }
