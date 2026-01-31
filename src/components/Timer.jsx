@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 export default function Timer({ onFinish }) {
   const [time, setTime] = useState(25 * 60)
   const [isRunning, setIsRunning] = useState(false)
+  const [hasStarted, setHasStarted] = useState(false)
 
   useEffect(() => {
     if (!isRunning) return
@@ -22,9 +23,31 @@ export default function Timer({ onFinish }) {
   const minutes = Math.floor(time / 60)
   const seconds = time % 60
 
+  const startTimer = () => {
+    setIsRunning(true)
+    setHasStarted(true)
+  }
+
+  const pauseTimer = () => {
+    setIsRunning(false)
+  }
+
   const resetTimer = () => {
     setIsRunning(false)
+    setHasStarted(false)
     setTime(25 * 60)
+  }
+
+  const getStatusText = () => {
+    if (!hasStarted) return '🆕 New Session'
+    if (isRunning) return '🟢 Session Running'
+    return '⏸️ Session Paused'
+  }
+
+  const getStatusColor = () => {
+    if (!hasStarted) return '#1565c0'
+    if (isRunning) return '#2e7d32'
+    return '#c62828'
   }
 
   return (
@@ -34,12 +57,12 @@ export default function Timer({ onFinish }) {
       {/* Status Indicator */}
       <p
         style={{
-          color: isRunning ? '#2e7d32' : '#c62828',
+          color: getStatusColor(),
           fontWeight: '600',
           marginBottom: '0.5rem'
         }}
       >
-        {isRunning ? '🟢 Session Running' : '⏸️ Session Paused'}
+        {getStatusText()}
       </p>
 
       <p className="timer">
@@ -48,9 +71,9 @@ export default function Timer({ onFinish }) {
 
       <div style={{ marginTop: '1rem' }}>
         {!isRunning ? (
-          <button onClick={() => setIsRunning(true)}>Start</button>
+          <button onClick={startTimer}>Start</button>
         ) : (
-          <button onClick={() => setIsRunning(false)}>Pause</button>
+          <button onClick={pauseTimer}>Pause</button>
         )}
         <button onClick={resetTimer} style={{ marginLeft: '0.5rem' }}>
           Reset
