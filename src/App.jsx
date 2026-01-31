@@ -4,18 +4,19 @@ import FocusRating from './components/FocusRating'
 import Insights from './components/Insights'
 
 export default function App() {
-  // false = no completed session
-  // number = completed session duration (in minutes)
-  const [sessionDone, setSessionDone] = useState(false)
+  // null = no completed session
+  // object = completed session metadata
+  const [sessionDone, setSessionDone] = useState(null)
 
   const [sessions, setSessions] = useState(
     JSON.parse(localStorage.getItem('sessions')) || []
   )
 
-  const addSession = (rating, duration) => {
+  const addSession = (rating, sessionMeta) => {
     const newSession = {
       rating,
-      duration,
+      duration: sessionMeta.duration,
+      startedAt: sessionMeta.startedAt,
       completedAt: new Date().toISOString()
     }
 
@@ -23,8 +24,7 @@ export default function App() {
     setSessions(updated)
     localStorage.setItem('sessions', JSON.stringify(updated))
 
-    // reset back to timer view
-    setSessionDone(false)
+    setSessionDone(null)
   }
 
   return (
@@ -32,7 +32,7 @@ export default function App() {
       <h1>🌿 FocusSpace</h1>
 
       {!sessionDone ? (
-        <Timer onFinish={(duration) => setSessionDone(duration)} />
+        <Timer onFinish={(meta) => setSessionDone(meta)} />
       ) : (
         <FocusRating
           onSubmit={(rating) => addSession(rating, sessionDone)}

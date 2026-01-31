@@ -2,17 +2,21 @@ import { useEffect, useState } from 'react'
 import SoundToggle from './SoundToggle'
 
 export default function Timer({ onFinish }) {
-  const [duration, setDuration] = useState(25) // minutes
+  const [duration, setDuration] = useState(25)
   const [time, setTime] = useState(25 * 60)
   const [isRunning, setIsRunning] = useState(false)
   const [hasStarted, setHasStarted] = useState(false)
+  const [startedAt, setStartedAt] = useState(null)
 
   useEffect(() => {
     if (!isRunning) return
 
     if (time === 0) {
       setIsRunning(false)
-      onFinish(duration)
+      onFinish({
+        duration,
+        startedAt
+      })
       return
     }
 
@@ -21,14 +25,17 @@ export default function Timer({ onFinish }) {
     }, 1000)
 
     return () => clearTimeout(timer)
-  }, [time, isRunning, duration, onFinish])
+  }, [time, isRunning, duration, startedAt, onFinish])
 
   const minutes = Math.floor(time / 60)
   const seconds = time % 60
 
   const startTimer = () => {
+    if (!hasStarted) {
+      setStartedAt(new Date().toISOString())
+      setHasStarted(true)
+    }
     setIsRunning(true)
-    setHasStarted(true)
   }
 
   const pauseTimer = () => {
@@ -38,6 +45,7 @@ export default function Timer({ onFinish }) {
   const resetTimer = () => {
     setIsRunning(false)
     setHasStarted(false)
+    setStartedAt(null)
     setTime(duration * 60)
   }
 
@@ -46,37 +54,30 @@ export default function Timer({ onFinish }) {
     setDuration(value)
     setTime(value * 60)
     setHasStarted(false)
+    setStartedAt(null)
     setIsRunning(false)
-  }
-
-  const getStatusText = () => {
-    if (!hasStarted) return '🆕 New Session'
-    if (isRunning) return '🟢 Session Running'
-    return '⏸️ Session Paused'
   }
 
   return (
     <div className="card">
       <h2>Focus Session</h2>
 
-      {/* Duration Selector */}
       {!hasStarted && (
         <div style={{ marginBottom: '0.75rem' }}>
           <label>
-            Session Duration (minutes):{' '}
+            Session Duration:{' '}
             <select value={duration} onChange={handleDurationChange}>
-              <option value={2}>2</option>
+              <option value={10}>2</option>
               <option value={10}>10</option>
               <option value={20}>20</option>
               <option value={25}>25</option>
               <option value={30}>30</option>
               <option value={45}>45</option>
-            </select>
+            </select>{' '}
+            min
           </label>
         </div>
       )}
-
-      <p style={{ fontWeight: '600' }}>{getStatusText()}</p>
 
       <p className="timer">
         {minutes}:{seconds.toString().padStart(2, '0')}
