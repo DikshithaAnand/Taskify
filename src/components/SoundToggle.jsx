@@ -4,7 +4,6 @@ export default function SoundToggle({ isRunning }) {
   const audioRef = useRef(null)
   const [enabled, setEnabled] = useState(false)
 
-  // Create audio only once
   useEffect(() => {
     const audio = new Audio('/sounds/rain.mp3')
     audio.loop = true
@@ -17,23 +16,24 @@ export default function SoundToggle({ isRunning }) {
     }
   }, [])
 
-  // Control playback
   useEffect(() => {
     if (!audioRef.current) return
 
     if (enabled && isRunning) {
-      audioRef.current
-        .play()
-        .catch((err) => {
-          console.warn('Audio playback blocked by browser:', err)
-        })
+      audioRef.current.play().catch(() => {})
     } else {
       audioRef.current.pause()
     }
   }, [enabled, isRunning])
 
   const toggleSound = () => {
-    setEnabled((prev) => !prev)
+    setEnabled((prev) => {
+      const next = !prev
+      if (next && isRunning && audioRef.current) {
+        audioRef.current.play().catch(() => {})
+      }
+      return next
+    })
   }
 
   return (

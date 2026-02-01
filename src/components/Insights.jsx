@@ -8,10 +8,8 @@ export default function Insights({ sessions }) {
     )
   }
 
-  // Take last 5 sessions
   const recentSessions = sessions.slice(-5)
 
-  // Calculate average focus
   const average =
     sessions.reduce((sum, s) => sum + Number(s.rating), 0) / sessions.length
 
@@ -23,7 +21,6 @@ export default function Insights({ sessions }) {
         Average Focus: <strong>{average.toFixed(1)}</strong> ⭐
       </p>
 
-      {/* Visual Indicators */}
       <div
         style={{
           display: 'flex',
@@ -35,14 +32,20 @@ export default function Insights({ sessions }) {
       >
         {recentSessions.map((session, index) => {
           const duration = session.duration || 25
+          const startedAt = session.startedAt
+            ? new Date(session.startedAt).toLocaleString()
+            : 'Not recorded'
           const completedAt = session.completedAt
             ? new Date(session.completedAt).toLocaleString()
-            : 'Unknown time'
+            : 'Not recorded'
 
           return (
             <div
               key={index}
-              title={`Focus: ${session.rating} | Duration: ${duration} min | Completed: ${completedAt}`}
+              title={`Focus: ${session.rating}
+Duration: ${duration} min
+Started: ${startedAt}
+Completed: ${completedAt}`}
               style={{
                 width: '20px',
                 height: `${session.rating * 20}px`,
