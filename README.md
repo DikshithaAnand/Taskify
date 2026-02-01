@@ -1,46 +1,68 @@
 # 🌿 FocusSpace  
 *A Calm Study Space & Focus Awareness App*
 
-FocusSpace is a minimal **React-based productivity app** designed to help users study in a calm environment and reflect on their focus after each session.  
-It combines a **focus timer** with **self-awareness**, encouraging mindful and distraction-free studying.
+FocusSpace is a minimal **React-based productivity app** designed to help users study in a calm environment and reflect on their focus over time.  
+It combines a **customizable focus timer**, **session analytics**, and **self-awareness** to encourage mindful, distraction-free studying.
 
 ---
 
 ## ✨ Key Features
 
-- ⏱️ **Focus Timer**
-  - 25-minute focus session
-  - Start, pause, and reset controls
+### ⏱️ Focus Timer
+- Custom focus session duration (10, 20, 25, 30, 45 minutes)
+- Start, pause, and reset controls
+- Session counted **only when fully completed**
 
-- ⭐ **Focus Rating**
-  - Rate focus level (1–5) after each session
+### 🟢 Session Tracking
+- Records **session start time**
+- Records **completion time**
+- Reset or cancelled sessions are **not counted**
 
-- 📊 **Focus Insights**
-  - Average focus score
-  - Recent session history
+### ⭐ Focus Rating
+- Rate focus level (1–5) after each completed session
+- Rating appears **only after session completion**
 
-- 💾 **Local Storage**
-  - All sessions are saved locally in the browser
-  - No account or backend required
+### 📊 Focus Insights
+- Average focus score across sessions
+- Visual representation of recent focus sessions (bar indicators)
+- Tooltips show:
+  - Focus rating
+  - Session duration
+  - Completion time
 
-- 🎨 **Clean & Calm UI**
-  - Minimal design for reduced distraction
+### 🌧️ Ambient Focus Sound
+- Optional rain sound during focus sessions
+- Plays only while the session is running
+- User-controlled (no autoplay)
+
+### 💾 Local Storage
+- All session data is saved locally in the browser
+- No login, no backend required
+
+### 🎨 Clean & Calm UI
+- Minimal design to reduce distraction
+- Clear session states:
+  - New Session
+  - Running
+  - Paused
 
 ---
 
 ## 🧠 Why FocusSpace?
 
-Most productivity apps focus only on tasks.  
-FocusSpace focuses on **how focused you actually felt**, helping users build awareness and healthier study habits over time.
+Most productivity apps focus on tasks and output.  
+FocusSpace focuses on **focus quality** — helping users understand *how* they study, not just *what* they do.
+
+By tracking session timing, duration, and self-rated focus, the app encourages healthier study habits and meaningful reflection.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **React** – Component-based UI
-- **Vite** – Fast development build tool
-- **CSS** – Simple, clean styling
-- **Browser LocalStorage** – Data persistence
+- **React** – Component-based UI and state management  
+- **Vite** – Fast development and build tooling  
+- **CSS** – Simple, clean styling  
+- **Browser LocalStorage** – Persistent analytics without a backend  
 
 ---
 
