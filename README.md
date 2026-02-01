@@ -71,3 +71,8 @@ By tracking session timing, duration, and self-rated focus, the app encourages h
 ```bash
 npm install
 npm run dev
+
+```
+## Author
+
+# DIKSHITHA A 
