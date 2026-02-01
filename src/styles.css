@@ -1,35 +1,88 @@
+/* 🌈 Global Reset */
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
 
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
-  background: #f5f7fa;
+  background: linear-gradient(135deg, #fff6d1, #d9fdd3);
+  color: #333;
 }
 
+/* 🌿 App Layout */
 .app {
-  max-width: 500px;
-  margin: auto;
-  padding: 2rem;
+  max-width: 420px;
+  margin: 2rem auto;
+  padding: 1rem;
   text-align: center;
 }
 
+/* 🍉 Title */
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  color: #4caf50;
+}
+
+/* 🧱 Card */
 .card {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  margin-top: 1rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 1.4rem;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
 }
 
+/* ⏱️ Timer */
 .timer {
-  font-size: 2.5rem;
-  font-weight: bold;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ff6f61;
+  margin: 1rem 0;
 }
 
+/* 🟢 Buttons */
 button {
-  padding: 0.6rem 1.2rem;
+  background: linear-gradient(135deg, #6bcf63, #4caf50);
   border: none;
-  border-radius: 8px;
-  background: #6c63ff;
+  border-radius: 18px;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
   color: white;
   cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* 🔁 Secondary Button */
+button + button {
+  background: linear-gradient(135deg, #ff6f61, #ff3d3d);
+  margin-left: 0.6rem;
+}
+
+/* 📊 Insight Bars */
+.card div[title] {
+  background: linear-gradient(180deg, #4d96ff, #6bcf63);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 🌧️ Sound Toggle */
+.sound-toggle {
+  margin-top: 1rem;
+}
+
+/* 🧠 Small Text */
+p {
+  font-size: 0.95rem;
 }

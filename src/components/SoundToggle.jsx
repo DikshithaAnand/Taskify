@@ -37,10 +37,11 @@ export default function SoundToggle({ isRunning }) {
   }
 
   return (
-    <div style={{ marginTop: '1rem' }}>
-      <button onClick={toggleSound}>
-        {enabled ? '🌧️ Rain ON' : '🔕 Rain OFF'}
-      </button>
-    </div>
+    <div className="sound-toggle">
+  <button onClick={toggleSound}>
+    {enabled ? '🌧️ Rain ON' : '🔕 Rain OFF'}
+  </button>
+</div>
+
   )
 }
