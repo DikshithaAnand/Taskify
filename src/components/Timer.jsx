@@ -13,15 +13,18 @@ export default function Timer({ onFinish }) {
 
     if (time === 0) {
       setIsRunning(false)
+
+      // Session completed successfully
       onFinish({
         duration,
         startedAt
       })
+
       return
     }
 
     const timer = setTimeout(() => {
-      setTime(time - 1)
+      setTime((t) => t - 1)
     }, 1000)
 
     return () => clearTimeout(timer)
@@ -67,7 +70,7 @@ export default function Timer({ onFinish }) {
           <label>
             Session Duration:{' '}
             <select value={duration} onChange={handleDurationChange}>
-              <option value={10}>2</option>
+              <option value={1}>1</option>
               <option value={10}>10</option>
               <option value={20}>20</option>
               <option value={25}>25</option>
